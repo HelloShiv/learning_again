@@ -81,5 +81,26 @@ no Cyclic Rotation in float double it comes out **+Inf and -Inf**
  # realtional operator 
  - >
  - <
- - >=
+ - \>=
  - <=
+  
+# floating bug
+![alt text](image.png)
+ **outputs maya**
+
+ **but gives hello here**
+![alt text](image-1.png)
+
+### give the answer as compiler dependent
+
+---
+
+# detect even or odd
+
+```c
+    if ((n^1) == (n+1))
+    or
+    if((n&1) == 0)
+    or
+    if(n%2 == 0)
+```

@@ -554,3 +554,5 @@ int main(){
 | p = &a ; address of a| it is referenve or alias|
 |*p = 7; need to do derefrence to change| r = 7; directly change|
 
+
+### NOTE: a function can return maximum one value but using pointer it can return multiple values

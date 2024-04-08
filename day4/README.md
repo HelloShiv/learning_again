@@ -294,3 +294,263 @@ int main(){
 ## Function drawback
 - slow execution speed 
   - SOLUTION: we can use `macro` function   
+
+# Normal function
+```cpp
+int sum (int x , int y){
+    return x+y;
+}
+int main(){
+    cout << sum(5,6);
+    cout << sum(5,8);
+    return 0
+}
+```
+# Macro Function
+```cpp
+                    //code
+# define sum(a+b)    (a+b)
+//        macro func
+int main(){
+    cout << sum(5,6);
+    return 0;
+}
+```
+cout << ~~sum(5,6)~~ << (5+7);
+
+## NOTE: In c++ no need to use macro function only add INLINE keyword befor the function definition
+
+## Inline function
+```cpp
+inline int sum (int x , int y){
+    return x+y;
+}
+int main(){
+    cout << sum(5,6);
+    cout << sum(5,8);
+    return 0
+}
+```
+
+
+
+### used for multiline value
+```c
+for multiple line 
+printf("               \
+                       \
+                       \
+                       ");
+```
+
+# FUNCTION OVERLOADING (in C++)
+when two or more functions having same name but different arguments then it is called as function overloading.
+It is also called as `POLYMORPHISM` 
+
+```cpp
+#include <iostream>
+int sum(int a , int b){
+    return a + b;
+}
+float sum(float a , float b){
+    return a + b;
+}
+int main(){
+    std::cout << sum(5.4f, 6.4f) << std::endl;
+    std::cout << sum(5, 6);
+    return 0;
+}       // output is 11.8 11
+```
+
+### Problem 
+- same code is being repeated many times
+
+Solution
+# Template
+```cpp
+#include <iostream>
+
+template<class T>
+T sum (T x , T y){
+    T t;
+    t = x + y;
+    return t;
+}
+
+int main(){
+    std::cout << sum(5, 6) << std::endl;
+    std::cout << sum(5, 6) << std::endl;
+    std::cout << sum(5.4f, 6.4f) << std::endl;
+    std::cout << sum(5.3, 6.3) << std::endl;
+    return 0;
+}
+```
+OR use Typename
+
+```cpp
+#include <iostream>
+
+template<typename T>
+T sum (T x , T y){
+    T t;
+    t = x + y;
+    return t;
+}
+
+int main(){
+    std::cout << sum(5, 6) << std::endl;
+    std::cout << sum(5, 6) << std::endl;
+    std::cout << sum(5.4f, 6.4f) << std::endl;
+    std::cout << sum(5.3, 6.3) << std::endl;
+    return 0;
+    // it will have 3 different copies
+}
+```
+
+### NOTE: After compile there will be as many copies of the template function as there are number of different call statements.
+
+## RECURSION (Fucntion calling itself)
+```cpp
+#include <iostream>
+int main(){
+    int i = 1; // local variable / autommatic varaiable
+    std::cout << "hello maya";
+    i++;
+    if(i > 5)
+        return 0;
+    main();
+    return 0;
+} // it is a infinite recursion
+```
+
+## SOLUTION TO RECURSION
+- Static variable
+ ```cpp
+#include <iostream>
+int main(){
+    static int i = 1; // local variable / autommatic varaiable
+    std::cout << "hello maya" << std::endl;
+    i++;
+    if(i > 5)
+        return 0;
+    main();
+    return 0;
+}
+```
+
+- global variable
+```cpp
+#include <iostream>
+int i = 1;
+int main(){
+    std::cout << "hello maya" << std::endl;
+    i++;
+    if(i > 5)
+        return 0;
+    main();
+    return 0;
+}
+```
+
+# POINTER
+- Pointer is a special variable which can store the address of any other variable.
+- The type of the pointer and the variable must be same
+```cpp
+int a = 5;
+float b = 10;
+int *p;
+p = &a;
+p = &b;  // it will throw error or warning depends on compiler
+
+float (*P)(int , int)   // Pointer to Function READ ABOUT IT
+```
+POINTER SIZE:
+```cpp
+#include <iostream>
+int main(){
+    int a;
+    float b;
+    long long c;
+    int *d;
+    float *e;
+    long long *f;
+    std::cout << "int: " << sizeof(a) << " int* :" << sizeof(d)
+              << " float: " << sizeof(b) << " float* :" << sizeof(e)
+              << " long long: " << sizeof(c) << " long long* :" << sizeof(f);
+    return 0;
+    // int: 4 int* :8 float: 4 float* :8 long long: 8 long long* :8
+}
+```
+DEREFRENCING
+```cpp
+int a = 5;
+int *p;
+p = &a;
+*p = 7; // DEREFENCING
+cout << a;  // outputs: 7
+```
+
+PRINT ADDRESS
+```c
+int a = 5;
+int *p;
+p = &a;
+cout << "address of a is: " << &a;
+cout << "address of a is: "  << p;
+cout << "Value of a is :  "  << a;      //5
+cout << "Value of a is :  "  << *p;     //5
+```
+
+iterator is also a pointer , STL (standard template library)
+
+- SWAP 2 NUMBERS
+```cpp
+#include <iostream>
+int main(){
+    int a, b;
+    int *p1, *p2;
+    p1 = &a;
+    p2 = &b;
+    std::cin >> a >> b;
+    *p1 = (*p1) ^ (*p2);
+    *p2 = (*p1) ^ (*p2);
+    *p1 = (*p1) ^ (*p2);
+    std::cout << "value a: " << *p1 << " value b: " << *p2;
+    return 0;
+}
+```
+
+`Call by reference is not is equals to call by address in c++.`
+- Swap two numbers via pointers
+```cpp
+#include <iostream>
+void sum(int *a ,int *b){
+    int t;
+    t = *a;
+    *a = *b;
+    *b = t;
+}
+int main(){
+    int a = 5, b = 9;
+    sum(&a, &b);
+    std::cout << "a: " << a << " b: " << b;
+    return 0;
+}
+```
+
+## Limitation of Pointers
+- extra memory is required
+- syntax is not simple
+    - SOLUTION
+      - Reference / nickname
+      - in C++ only
+
+# 
+
+|Pointer | Reference|
+| ------ | ---------|
+|int a = 5 | int a = 5 |
+|int *p;   | int &r = a ; no extra memory required| 
+| p = &a ; address of a| it is referenve or alias|
+|*p = 7; need to do derefrence to change| r = 7; directly change|
+

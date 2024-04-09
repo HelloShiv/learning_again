@@ -241,7 +241,104 @@ int main(){
 ### write on your own linear serach :angry: DIY
 
 
+
+## SORTING
+
+### Selection sort
+```cpp
+#include <iostream>
+#include <vector>
+
+void selection_sort(int* arr , int n){
+    for (int i = 0; i < n - 1; i++){
+        for (int j = i + 1; j < n; j++){
+            if(arr[i] > arr[j])
+                std::swap(arr[i], arr[j]);
+        }
+    }
+}
+
+int main(){
+    int arr[] = {1, 35, 7, 84, 23, 6};
+    int size = sizeof(arr) / sizeof(int);
+    selection_sort(arr ,size);
+
+    for(auto it: arr){
+        std::cout << it << " ,";
+    }
+    std::cout << "\b ";
+    return 0;
+}
+```
+
+## ARRAY
+
+- ### 1D array
+  - `int m[10]`
+- ## 2D array
+  - `int m[10][20]`
+
+    ```cpp
+    #include <iostream>
+    int main(){
+    int m[3][4] ={{1,2,3,4},{5,6,7,8},{9,10,11,12}} , r = 3 , c = 4;
+        for (int i = 0; i < r; i++){
+            for (int j = 0; j < c;j ++){
+                std::cout << m[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    ```
+- ## 3D array
+  - `int m[10][20][30]`
+
+
+## Transpose
+```cpp
+    for(int i = 0 ; i < c; i++){
+        for(int j = 0 ; j < r; j++){
+            std::cout << M[j][i];
+        }
+        std::cout <<std::endl;
+    }
+```
+
+
+### IMP
+
+##### column is compulsory eg.
+```cpp
+    int po[] = {2,334,452,21};  // right
+    int po[][] = {1,3,4,5,6,7}  // wrong
+    int po[][4] = {1,3,4,5,6,7} //right
+
+```
+
+### print row and column sum individual
+```cpp
+#include <iostream>
+int main(){
+    int arr[3][4] = {{1, 2, 3, 4}, {4, 1, 3, 2}, {2,2,1,8}} , r = 3 , c = 4 , colsum[c] = {0};
+
+    for (int i = 0; i < r; i++){
+        int rsum = 0;
+        for (int j = 0; j < c; j++)
+        {
+            rsum += arr[i][j];
+            colsum[j] += arr[i][j];
+        }
+        std::cout << "arr row : " << rsum <<std::endl;
+    }
+    for(auto it: colsum){
+        std::cout << it << " ";
+    }
+
+        return 0;
+}
+```
 ----
+
 
 ### how to write different number system
 ```

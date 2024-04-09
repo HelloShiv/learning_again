@@ -556,3 +556,21 @@ int main(){
 
 
 ### NOTE: a function can return maximum one value but using pointer it can return multiple values
+
+
+# Function Pointer
+```cpp
+#include <iostream>
+
+inline int add(int a , int b){
+    return a + b;
+}
+
+int main(){
+    int (*ptr)(int, int) = &add;
+    std::cout << ptr(3, 5);
+    return 0;
+}
+```
+
+### Remeber int *arr[10] and int (*arr)[10] in the first one fight will be concluded depending on the precedence and we want a pointer that points to 10 interger value

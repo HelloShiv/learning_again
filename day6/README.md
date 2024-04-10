@@ -222,3 +222,185 @@ int main(){
 }
 ```
 
+
+## Structure (to create user defined datatype)
+```cpp
+- int       <-|
+- float     <-|   
+- char      <-|
+              |
+Pre-defined datatypes or primitive
+
+struct / union / enum / class
+```
+
+```cpp
+
+struct Date 
+{
+    int date, year, month; // stuct will not get memory 
+                           //it will get memory when 
+                           //object is created ;;
+};
+```
+
+
+#### struct take ; at end because gloabal object can be declared
+```cpp
+struct Time{
+    int h, m, s;
+};  //<--- this ;
+```
+
+in C u need to struct
+```c
+struct Time{
+    int h, m, s;
+}; 
+
+int main(){
+    struct Time DOB;
+    return 0;
+}
+
+```
+
+
+### typedef help us give aliases
+
+```c
+//typedef int salary;
+
+struct Date{
+
+};
+
+int main(){
+    struct Date dob,doj;
+    return 0;
+}
+
+```
+
+same as
+```c
+//typedef int salary;
+
+typedef struct Date{
+
+}dt;
+
+int main(){
+    dt dob,doj;
+    return 0;
+}
+
+```
+
+
+## object initialization
+```cpp
+    
+    struct student{
+        int roll;
+        char name[20];
+        float per;
+    }
+    int main(){
+        student s1 = {101 , "maya" , 97 } ;
+        student s2 = {101 , "shiv"}  // this will run only initialize first value
+
+        return 0;
+    }
+```
+
+## structure padding (learn on own)
+
+```cpp
+struct abc{
+    int x;
+    char y;
+}a1;
+
+cout << sizeof(a1);     // 8 byte
+```
+refer same as
+```cpp
+struct abc{
+    int x;
+    char y;
+    char z;
+}a1;
+
+cout << sizeof(a1);     // 8 byte same
+```
+
+pass by reference , value ,address
+```cpp
+#include <iostream>
+#include <algorithm>
+
+struct  complex
+{
+    int real;
+    int imag;
+};
+
+void swapbyValue(complex s1 , complex s2){
+    complex t;
+    t = s1;
+    s1 = s2;
+    s2 = t;
+}
+
+void swapbyRef(complex &s1 , complex &s2){
+    complex t;
+    t = s1;
+    s1 = s2;
+    s2 = t;
+}
+
+void swapbyAdd(complex *c1 , complex *c2){
+    complex t;
+    t = *c1;
+    *c1 = *c2;
+    *c2 = t;
+}
+
+int main(){
+    complex c1, c2;
+    c1.real = 5;
+    c1.imag = 4;
+    c2.real = 3;
+    c2.imag = 2;
+    // swapbyRef(c1, c2);
+    swapbyAdd(&c1, &c2);
+    std::cout << c1.real << "+ " << c1.imag << "i" << std::endl;
+    std::cout << c2.real << "+ " << c2.imag << "i" <<std::endl;
+
+    return 0;
+}
+```
+
+
+## Structure and pointer;
+```cpp
+struct students{
+
+}s1,*p;             // s1 will have 28 bytes
+                    // *p will have 4 bytes
+
+
+int main(){
+    p = &s1;
+    s1.roll = 5 ;       // object member is accessed by .
+    *p.roll = 6;    // . is of hight priority :negative_squared_cross_mark:     is wrong
+    (*p).roll = 6;  // else
+    p-> roll = 6 ;  // pointer->member
+
+    return 0;
+}
+```
+
+`(*p).roll` is equals `p->roll`
+

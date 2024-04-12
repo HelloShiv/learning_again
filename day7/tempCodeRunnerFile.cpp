@@ -1,0 +1,1 @@
+cout << "name is : "<< n

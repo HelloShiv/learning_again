@@ -195,9 +195,9 @@ int main(){
 |        int roll;
 |--->    string name;
         public:
-        void setData(int r , string n){
-            roll = r;
-            name = n;
+        void setData(int roll , string name){
+            roll = roll;
+            name = name;
         }
 |
 |    }

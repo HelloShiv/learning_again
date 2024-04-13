@@ -318,6 +318,46 @@ int main(){
 
 ```
 
+## COPY CONSTRUCTOR
+```cpp
+eg:1
+A a1(5,6);  // parameterized
+A a2(a1);   // copy constructor called
+A a3 = a2;  // copy constructor called
+
+eg:2
+A a1(5,6);
+A a2;       
+a1 = a2;    // no copy constructor will be called
+
+eg:3
+void f1(A obj){     // copy constructor called
+
+}
+
+A a1(3,4);
+f1(a1);
+
+
+eg:4
+void f1(A &obj){     // No copy constructor called
+
+}
+
+A a1(3,4);
+f1(a1);
+
+
+eg:5
+A f1(){
+    A a1(5,6);
+    return (a1);
+}
+
+A a2 = f1();        // copy constructor called
+                    // Because of RVO Retrun Value of Optimization it might not call copy constructor.
+
+``` 
 
 
 ----
@@ -342,6 +382,256 @@ int main(){
 ```
 
 
+##### eg code
+```cpp
+#include <iostream>
+using namespace std;
+
+class A{
+    int x, y;
+    public:
+    A(){
+        x = y = 0;
+    }
+
+    A(int x , int y){
+        this->x = x;
+        this->y = y;
+    }
+
+    A(const A &obj){  // obj is a1 call by REFERENCE ONLY
+        cout << "Copy constructor called"<<endl;
+        this->x = obj.x;
+        this->y = obj.y;
+    }
+
+    void display(){
+        cout << "x is: " << x << " y is: " << y << endl;
+    }
+};
+
+int main(){
+    A a1(5, 6);
+    A a2(a1);
+    a1.display();
+    a2.display();
+    return 0;
+}
+```
+
+
+### by reference in C++
+```cpp
+#include <iostream>
+using namespace std;
+
+class A{
+    int x, y;
+    public:
+    A(){
+        x = y = 0;
+    }
+
+    A(int x , int y){
+        this->x = x;
+        this->y = y;
+    }
+
+    A(A &obj){  // obj is a1 call by REFERENCE ONLY
+        cout << "Copy constructor called"<<endl;
+        this->x = obj.x;
+        this->y = obj.y;
+    }
+
+    void display(){
+        cout << "x is: " << x << " y is: " << y << endl;
+    }
+};
+
+int main(){
+    A a1(5, 6),a2;
+    
+    a1.display();
+    
+    return 0;
+}
+
+
+```
+### by address in c++
+```cpp
+#include <iostream>
+using namespace std;
+
+class A{
+    int x, y;
+    public:
+    A(){
+        x = y = 0;
+    }
+
+    A(int x , int y){
+        this->x = x;
+        this->y = y;
+    }
+
+    A(const A &obj){  // obj is a1 call by REFERENCE ONLY
+        cout << "Copy constructor called"<<endl;
+        this->x = obj.x;
+        this->y = obj.y;
+    }
+
+    void display(){
+        cout << "x is: " << x << " y is: " << y << endl;
+    }
+
+    void f1(A &obj){
+
+    }
+};
+
+int main(){
+    A a1(5, 6) ,a2;
+    // A a2(a1);
+    a2.f1(a1);
+    a1.display();
+    // a2.display();
+    return 0;
+}
+```
+
+
+#### Every class contains a copy constructor even if we do not initialize it.
+
+
+----
+## By default class has this
+```cpp
+class A{
+    public:
+    A(){
+        default constructor
+    }
+
+    A(const A &obj){
+        copy constructor
+    }
+
+    A operator=(A obj){
+        equal opeartor
+    }
+    ~A(){
+        destructor
+    }
+};
+```
+- Default constructor
+- copy constructor
+- equal opeartor
+- destructor
+
+If a class contains any dynamic array then we should define our own copy constructor
+
+
+```cpp
+class A{
+    int *p;
+    int n;
+    public:
+    A(int n){
+        this->n = n;
+        p = new int[n];
+    }
+}
+```
+
+### shallow copy 
+```cpp
+#include <iostream>
+using namespace std;
+// shallow copy by defalut copy constructor
+
+class A{
+    public: 
+    int *p, n;
+    A(int n){
+        this->n = n;
+        p = new int[n];
+    }
+
+    void getdata(){
+        for (int i = 0; i < n; i++){
+            cin >> p[i];
+        }
+    }
+
+    void display(){
+        for (int i = 0; i < n; i++){
+            cout << p[i] << "\t";
+        }
+        cout << endl;
+    }
+};
+
+int main(){
+    A a1(3);
+    a1.getdata();      
+    A a2(a1);       // photo copy
+    a1.display();   // 11 20 30
+    a2.display();   // 11 20 30
+
+    return 0;
+}
+```
+
+
+### DEEP copy
+```cpp
+#include <iostream>
+using namespace std;
+// shallow copy by defalut copy constructor
+
+class A{
+    public: 
+    int *p, n;
+    A(int n){
+        this->n = n;
+        p = new int[n];
+    }
+
+    A(const A &obj){
+        this->n = obj.n;
+        this->p = new int[obj.n];
+        for (int i = 0; i < n; i++){
+            this->p[i] = obj.p[i];
+        }
+    }
+    void getdata(){
+        for (int i = 0; i < n; i++){
+            cin >> p[i];
+        }
+    }
+
+    void display(){
+        for (int i = 0; i < n; i++){
+            cout << p[i] << "\t";
+        }
+        cout << endl;
+    }
+};
+
+int main(){
+    A a1(3);
+    a1.getdata();
+    A a2(a1);
+    a1.p[0] = 12;
+    a1.display();
+    a2.display();
+
+    return 0;
+}
+```
+----
 
 ### how to use in forward declaration
 ```cpp

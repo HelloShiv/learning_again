@@ -404,3 +404,125 @@ NOTE:
 - set
 - unorderd _ set
 - multiset
+
+
+# Virtual Function
+
+### Binding:
+Binding is a process by which a function call is linked to its definition after comparing it with several definitions
+
+### Types of binding
+- compile time binding  / Early Binding / Static Binding
+- Run time binding  / Late Binding / Dynamic Binding
+
+In c++ default binding is EARLY BINDING.
+BY adding VIRTUAL we can make it dynamic.
+
+## NOTE:- (make code)
+```cpp
+PARENT CAN STORE THE POINTER OF CHILD TYPE
+BUT
+CHILD CANNOT STORE THE POINTER OF PARENT TYPE
+```
+
+
+
+```cpp
+class A{
+    public:
+    void f1();
+    void f2();
+};
+
+class B: public A{
+    public:
+    void f2();
+    void f3();
+};
+
+int main(){
+    A *p;
+    p = new B();
+    p->f2();    // common func
+    p->f3();    // not allowed
+    p->f1();    // allowed
+}
+
+// In this only common function can be called
+```
+
+
+#### virtual program
+```cpp
+#include <iostream>
+using namespace std;
+
+class Sim{
+    public:
+        virtual void calling(){
+            cout << "no sim" << endl;
+        };
+        virtual void sms(){
+            cout << "no sim" << endl;
+        };
+};
+class Jio:public Sim
+{
+public:
+    void calling(){
+        cout << "Calling made from jio sim" << endl;
+    }
+    void sms(){
+        cout << "sms sent from jio sim" << endl;
+    }
+};
+
+class Bsnl:public Sim{
+    public:
+    void calling(){
+        cout << "Calling made from bsnl sim" << endl;
+    }
+    void sms(){
+        cout << "sms sent from bsnl sim" << endl;
+    }
+};
+
+class Airtel:public Sim{
+    public:
+    void calling(){
+        cout << "Calling made from airtel sim" << endl;
+    }
+    void sms(){
+        cout << "sms sent from airtel sim" << endl;
+    }
+};
+
+int main(){
+    int n;
+    cout << "1 for jio \n2 for bsnl \n3 for airtel \n Enter your choice: ";
+    cin >> n;
+
+    Sim *p;
+    if (n == 1)
+        p = new Jio();
+    else if(n == 2)
+        p = new Bsnl();
+    else
+        p = new Airtel();
+
+    p->calling();
+    p->sms();
+    return 0;
+}
+```
+
+
+## PURE VIRTUAL
+
+```cpp
+class Sim{
+    public:
+        virtual void calling() = 0;
+        virtual void sms() = 0;
+};
+```
